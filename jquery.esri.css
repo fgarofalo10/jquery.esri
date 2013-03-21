@@ -1,0 +1,6 @@
+.infowindow .window .user {
+  background-color: #fff !important;
+}
+.infowindow .pointer {
+	display:none !important;
+}
