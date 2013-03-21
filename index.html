@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>jQuery.Esri | Esri Professional Services</title>
+
+    <link rel="stylesheet" type="text/css" href="../../css/reset2011.css">  
+    <link rel="stylesheet" type="text/css" href="../../css/960.css"> 
+    <link rel="stylesheet" type="text/css" href="../../css/main2011.css"> 
+    <link rel="stylesheet" type="text/css" href="jquery.esri.css">   
+    
+    <!-- jQuery - START -->
+    <!-- Note that the new "Auto-Loading" feature is used by encoding the list of required modules in the URL (More info here: http://code.google.com/apis/ajax/documentation/#AutoLoading) -->
+    <script type="text/javascript" src="http://www.google.com/jsapi?key=qDCtRVNLgUhnJVaabm69uDjeZg&amp;autoload=%7B%27modules%27%3A%5B%7B%27name%27%3A%27jquery%27%2C%27version%27%3A%271.4.2%27%7D%2C%7B%27name%27%3A%27jqueryui%27%2C%27version%27%3A%271.8.2%27%7D%5D%7D"></script>
+
+    <script type="text/javascript">var djConfig = {parseOnLoad: true};</script>
+    <script type="text/javascript" src="http://serverapi.arcgisonline.com/jsapi/arcgis/?v=3.1"></script>
+    <script type="text/javascript" src="jquery.esri.js"></script>
+	<script type="text/javascript">
+		jQuery.noConflict();
+		
+		// jQuery
+		jQuery(document).ready(function(e) {
+			
+			// -----------------------------------------------------------------------------------------------------------------
+			// jQuery.esri - START
+			// -----------------------------------------------------------------------------------------------------------------
+			var mapOptions = {
+				//webMapId:		"085648dddb0e41baa898b5e0b3afc902",	
+				initBasemap_url : 'server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer',
+				mapNav: false,
+				mapLayers: [
+				  //{
+					//id: "dynamicMapService1",
+					//type: "DynamicMapService",
+					//url: "http://polbdev.esri.com/ArcGIS/rest/services/AIS/MapServer"
+				  //},
+				   /*
+				  {
+					id: "worldTemps1",
+					type: "ImageServer",
+					url: "http://sampleserver3.arcgisonline.com/ArcGIS/rest/services/World/Temperature/ImageServer",
+					params: null
+				  },
+				  {
+					id: "recentEarthquakes",
+					type: "ArcGISTiledMapServiceLayer",
+					url: "http://sampleserver3.arcgisonline.com/ArcGIS/rest/services/Earthquakes/RecentEarthquakesRendered/MapServer/0",
+					params: null
+				  },*/
+				  {
+					id: "port1",
+					type: "ArcGISDynamicMapServiceLayer",
+					url: "http://polbdev.esri.com/arcgis/rest/services/AIS/MapServer",
+					params: null
+				  }/*,
+				  {
+					id: "CalTransTraffic1",
+					type: "FeatureServer",
+					url: "http://atlas.resources.ca.gov/ArcGIS/rest/services/Transportation/CA_Higway_Alerts/FeatureServer/0",
+					params: {
+							mode: "esri.layers.FeatureLayer.MODE_ONDEMAND",
+							outfields: ["*"]
+						}
+				  }*/
+				],
+				mapExtent: {
+					wkid: 102100, //3857,
+					xmax: -13155592.58,
+					xmin: -13168969.06,
+					ymax: 4000165.32,
+					ymin: 3990610.69
+				 },
+				/*
+				mapExtent: {
+					wkid: 4326,
+					xmax: -13155592.58,
+					xmin: -13168969.06,
+					ymax: 4000165.32,
+					ymin: 3990610.69
+				 },
+				*/
+				wrapAround180: true,
+				//overviewMap: "overviewDiv",
+				geoLocateMe: false,
+				geoService: true,
+				basemapGallery: 'map_basemapGallery',
+				//basemaps: [
+				//	{
+				//		url: 'http://sampleserver1.arcgisonline.com/ArcGIS/rest/services/PublicSafety/PublicSafetyBasemap/MapServer',
+				//		title: 'Public Safety',
+				//		thumbnail: 'http://help.arcgis.com/en/webapi/javascript/arcgis/demos/widget/images/waterThumb.png'
+				//	}
+					//{
+					//	url: 'http://egisws02.nos.noaa.gov/ArcGIS/rest/services/RNC/NOAA_RNC/MapServer',
+					//	title: 'NOAA',
+					//	thumbnail: 'http://help.arcgis.com/en/webapi/javascript/arcgis/demos/widget/images/waterThumb.png'
+					//}
+				//],
+				mapLegend: 'map_legend',
+				infoTemplate: {
+					title: "Location",
+					//layout: "Street: ${Address}<br />City: ${City}<br />State: ${State}<br />Zip: ${Zip}"	
+					layout: "<table><tr><td style=\"padding-right:5px\">Street:</td><td>${Address}</td></tr><tr><td>City: </td><td>${City}</td></tr><tr><td>State:</td><td>${State}</td></tr><tr><td>Zip:</td><td>${Zip}</td></tr></table>"	
+				}
+			};
+					
+			jQuery("#mapDiv").esri( mapOptions ); //.esri("init",  mapOptions );
+						
+			/*
+			var mapLayerParams = {
+				id: "port1",
+				type: "ArcGISDynamicMapServiceLayer",
+				url: "http://polbdev.esri.com/arcgis/rest/services/AIS/MapServer",
+				params: null
+			};
+			jQuery("#mapDiv").esri( "setMapLayer", mapLayerParams );
+			*/
+			
+			// -----------------------------------------------------------------------------------------------------------------
+			// jQuery.esri - END
+			// -----------------------------------------------------------------------------------------------------------------
+			
+			
+			// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+			
+			
+			// -----------------------------------------------------------------------------------------------------------------
+			// Interface Elements - START
+			// -----------------------------------------------------------------------------------------------------------------
+			// Other Interactive Items
+			var elem_link_map_hide = jQuery("#link_map_hide");
+			var elem_link_map_show = jQuery("#link_map_show");
+			elem_link_map_show.hide();
+			
+			elem_link_map_hide.click(function(e) {
+				elem_link_map_hide.hide();
+				elem_link_map_show.show();
+				
+                jQuery("#mapDiv").esri("hide");
+				
+				e.preventDefault();
+            });
+			
+			elem_link_map_show.click(function(e) {
+				elem_link_map_hide.show();
+				elem_link_map_show.hide();
+				
+                jQuery("#mapDiv").esri("show");
+				
+				e.preventDefault();
+            });
+			jQuery("#link_map_geoLocate").click(function(e) {
+                jQuery("#mapDiv").esri("getGeoLocate");
+				
+				e.preventDefault();
+            });
+			jQuery("#link_map_setRouting").click(function(e) {
+                jQuery("#mapDiv").esri("setRouting");
+				
+				e.preventDefault();
+            });
+			jQuery("#link_map_locator").click(function(e) {
+                jQuery("#mapDiv").esri("setLocate", "starbucks");
+				
+				e.preventDefault();
+            });
+			// -----------------------------------------------------------------------------------------------------------------
+			// Interface Elements - END
+			// -----------------------------------------------------------------------------------------------------------------
+			
+		});
+    </script>
+
+    <!-- jQuery - END -->
+    <style type="text/css">
+		#container_mapDiv,
+		#mapDiv  {
+			width:890px;
+			height:550px;
+			display:block;
+			clear:both;
+			background-color:#fff;
+			background-image:url(logo_esri.png);
+			background-repeat:no-repeat;
+			background-position:center;
+		}
+		#mapDiv { float: left; }
+	</style>
+</head>
+
+<body class="container_16">
+	<div id="the_box" class="hidden">
+    	<div id="the_box_content">
+			<div id="box_logo" title="Resources" class="grid_16 first last">
+            	<h1>jQuery.Esri</h1>
+            	<h2>http://api.jquery.com/child-selector/</h2>
+            </div>
+    	</div>
+    </div>
+    
+    <div id="container_master" class="grid_16 first last">
+    	<div id="container_header" class="grid_16 first last margin_top_10">
+			<div id="esri_logo" title="Esri" class="grid_5 push_1 first">
+            	<h1>Esri</h1>
+                <a href="http://www.esri.com"><img src="../../images/spacer.gif" width="149" height="69" /></a>
+            </div>
+			<div class="grid_10 push_1 last">
+            	<div id="container_header_messages">&nbsp;</div>
+            	<div id="container_header_menu">
+                	<ul id="menu_primary" class="hidden_important">
+                        <li><a href="../projects" title="Projects">Projects</a></li>
+                        <li><a href="../3_phases" title="3-Steps">3-Phases</a></li>
+                        <li><a href="#" title="Resources">Resources</a></li>
+                        <li><a href="../index.html" title="Home">Home</a></li>
+                    </ul></div>
+            </div>
+            
+			<div id="uouw_logo" title="Resources" class="grid_16 first last margin_top_10 scrollPast">
+            	<h1>jQuery.Esri</h1>
+            	<h2>&nbsp;</h2>
+            </div>
+		</div>
+        
+        <!--
+        <div id="container_header_primary" class="grid_16 first last">
+            <div class="grid_7 first last">
+                <div id="header_esrinews">
+                    <h3>Esri News (RSS)</h3>
+                    <div id="zrss_esrinews" class="zrss_reader"></div>
+                </div>
+            </div>
+        </div>
+        -->
+        
+    	<div id="container_content" class="grid_15 push_1 first last margin_top_20">
+            <!-- COLUMN 1 - START -->
+        	<div class="grid_15 first last">
+                <div class="grid_15 first last">
+                	<p><a href="#" id="link_map_hide">Hide Map</a> <a href="#" id="link_map_show">Show Map</a> | <a href="#" id="link_map_geoLocate">Find Me</a> | <a href="#" id="link_map_locator">Locator</a></p>
+                	<!-- Map Container - START -->
+                    <div id="container_mapDiv">
+                        <div id="mapDiv">
+                        	<!--
+                          	<div id="ovWin" class="shadow" style="position:absolute; right:35px; top:5px; z-Index:998; width:100px;height:100px; ">
+                            	<div id="overviewDiv" style="width:100%;height:100%;"> </div>
+                          	</div>-->
+                        </div>
+                    </div>
+                	<!-- Map Container - END -->
+                </div>
+            </div>
+            <!-- COLUMN 1 - END -->
+            
+            <!-- Clear -->
+            <div class="clear"></div>
+            
+            <!-- COLUMN 1 - START -->
+        	<div class="grid_7 first">
+            	<h3>Basemaps</h3>
+            	<div id="map_basemapGallery"></div>
+            </div>
+        	<div class="grid_7 last">
+            	<h3>Legend</h3>
+            	<div id="map_legend"></div>
+            </div>
+            <!-- COLUMN 1 - END -->
+            
+            <!-- Clear -->
+            <div class="clear"></div>
+        </div>
+      </div>
+      
+    <!-- Footer Section-->
+    <div id="container_footer" class="grid_16 first last">
+    	<div class="grid_15 first last push_1 footerSmall">
+            <div class="grid_5 first">
+                <a href="http://www.w3.org/html/logo/"><img src="http://www.w3.org/html/logo/badge/html5-badge-h-css3-performance-semantics.png" width="197" height="64" alt="HTML5 Powered with CSS3 / Styling, Performance &amp; Integration, and Semantics" title="HTML5 Powered with CSS3 / Styling, Performance &amp; Integration, and Semantics"></a>
+            </div>
+            <div class="grid_10 last align_right">
+                <p>Questions or Comments: <a href="mailto:fgarofalo@esri.com">fgarofalo@esri.com</a></p>    	
+        	</div>
+        </div>
+      	<!--<div id="footer" class="grid_16 first last" title="Produced by the Esri Professional Services - UI Engineering Team">Esri Professional Services - UI Engineering Team</div> -->
+    </div>
+    
+</body>
+</html>
