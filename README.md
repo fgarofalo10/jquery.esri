@@ -79,7 +79,8 @@ var elem_link_map_hide = jQuery("#link_map_hide");
 var elem_link_map_show = jQuery("#link_map_show");
 elem_link_map_show.hide();
 
-// Hide Map link - Click event
+// Hide Map link - Click event: 
+
 elem_link_map_hide.click(function(e) {
 	// Hide the "Hide Map" link
 	elem_link_map_hide.hide();
@@ -92,8 +93,9 @@ elem_link_map_hide.click(function(e) {
 	e.preventDefault();
 });
 
-// Show Map link - Click event
-	elem_link_map_show.click(function(e) {
+// Show Map link - Click event: 
+
+elem_link_map_show.click(function(e) {
 	// Show the "Hide Map" link
 	elem_link_map_hide.show();
 	// Hide the "Show Map" link
@@ -105,7 +107,8 @@ elem_link_map_hide.click(function(e) {
 });
 
 
-//GeoLocate link:
+//GeoLocate link: 
+
 jQuery("#link_map_geoLocate").click(function(e) {
 	jQuery("#mapDiv").esri("getGeoLocate");
 	
