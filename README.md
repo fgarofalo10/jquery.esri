@@ -69,3 +69,45 @@ The options passed into jQuery.esri() include:
 					layout: "<table><tr><td style=\"padding-right:5px\">Street:</td><td>${Address}</td></tr><tr><td>City: </td><td>${City}</td></tr><tr><td>State:</td><td>${State}</td></tr><tr><td>Zip:</td><td>${Zip}</td></tr></table>"	
 				}
 			};
+
+
+Other Interface elements:
+=========================
+
+// Hide / Show Map:
+var elem_link_map_hide = jQuery("#link_map_hide");
+var elem_link_map_show = jQuery("#link_map_show");
+elem_link_map_show.hide();
+
+// Hide Map link - Click event
+elem_link_map_hide.click(function(e) {
+	// Hide the "Hide Map" link
+	elem_link_map_hide.hide();
+	// Show the "Show Map" link
+	elem_link_map_show.show();
+	
+	// Call to plugin to hide the <div> containing the map
+	jQuery("#mapDiv").esri("hide");
+	
+	e.preventDefault();
+});
+
+// Show Map link - Click event
+	elem_link_map_show.click(function(e) {
+	// Show the "Hide Map" link
+	elem_link_map_hide.show();
+	// Hide the "Show Map" link
+	elem_link_map_show.hide();
+	
+	jQuery("#mapDiv").esri("show");
+	
+	e.preventDefault();
+});
+
+
+//GeoLocate link:
+jQuery("#link_map_geoLocate").click(function(e) {
+	jQuery("#mapDiv").esri("getGeoLocate");
+	
+	e.preventDefault();
+});
